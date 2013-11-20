@@ -39,6 +39,15 @@ class Fixnum
       tens_digit = self - ones_digit
       
       [tens_digit, ones_digit].map(&:in_words).join(' ')
+    elsif self.multiple_of?(100) && self < 1000
+      hundreds_digit = self / 100
+
+      hundreds_digit.in_words + " hundred"
+    elsif self < 1000
+      remainder = self % 100
+      hundreds = self - remainder
+
+      hundreds.in_words + " and " + remainder.in_words
     end
   end
 

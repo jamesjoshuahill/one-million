@@ -75,6 +75,23 @@ describe Fixnum do
 
     end
 
+    context 'integers from 100 to 1000' do
+
+      example '100, 900' do
+        words = [100, 900].map(&:in_words)
+        expect(words).to eq ["one hundred",
+                             "nine hundred"]
+      end
+
+      example '101, 430, 899' do
+        words = [101, 430, 899].map(&:in_words)
+        expect(words).to eq ["one hundred and one",
+                             "four hundred and thirty",
+                             "eight hundred and ninety nine"]
+      end
+
+    end
+
   end
 
 end
