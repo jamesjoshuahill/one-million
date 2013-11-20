@@ -30,10 +30,15 @@ class Fixnum
       80      => "eighty",
       90      => "ninety"
     }
-    if self > 0 && self < 20
-      return numbers_in_words[self]
+    if self < 20
+      numbers_in_words[self]
     elsif self.multiple_of?(10) && self < 100
-      return numbers_in_words[self]
+      numbers_in_words[self]
+    elsif self < 100
+      ones_digit = self % 10
+      tens_digit = self - ones_digit
+      
+      [numbers_in_words[tens_digit], numbers_in_words[ones_digit]].join(' ')
     end
   end
 
