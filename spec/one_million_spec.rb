@@ -4,6 +4,18 @@ describe Fixnum do
   
   context 'should output its value in words' do
 
+    context 'zero or less' do
+
+      example 'zero' do
+        expect(0.in_words).to be nil
+      end
+
+      example '-123' do
+        expect(-123.in_words). to be nil
+      end
+
+    end
+
     context 'first 19 integers' do
 
       example '1..19' do
@@ -112,6 +124,26 @@ describe Fixnum do
           "five hundred and seventeen thousand seven hundred and eighty nine",
           "nine hundred and eighty three thousand one hundred and twenty three"
         ]
+      end
+
+    end
+
+    context 'one million' do
+
+      example '1,000,000' do
+        expect(1000000.in_words).to eq "one million"
+      end
+
+    end
+
+    context 'over one million' do
+
+      example '1,000,001' do
+        expect(1000001.in_words).to be nil
+      end
+
+      example '1,234,567' do
+        expect(1234567.in_words).to be nil
       end
 
     end

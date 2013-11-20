@@ -57,6 +57,8 @@ class Fixnum
       thousands = self - remainder
 
       thousands.in_words + " " + remainder.in_words
+    elsif self == 1000000
+      "one million"
     end
   end
 
