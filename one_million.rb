@@ -36,18 +36,15 @@ class Fixnum
     elsif self.multiple_of?(10) && self < 100
       NUMBERS_IN_WORDS[self]
     elsif self < 100
-      remainder, tens = remainder_and_multiple_of(10)
-      tens.in_words + " " + remainder.in_words
+      multiple_and_remainder(10).map(&:in_words).join(' ')
     elsif self.multiple_of?(100) && self < 1000
       (self / 100).in_words + " hundred"
     elsif self < 1000
-      remainder, hundreds = remainder_and_multiple_of(100)
-      hundreds.in_words + " and " + remainder.in_words
+      multiple_and_remainder(100).map(&:in_words).join(' and ')
     elsif self.multiple_of?(1000) && self < 1000000
       (self / 1000).in_words + " thousand"
     elsif self < 1000000
-      remainder, thousands = remainder_and_multiple_of(1000)
-      thousands.in_words + " " + remainder.in_words
+      multiple_and_remainder(1000).map(&:in_words).join(' ')
     elsif self == 1000000
       "one million"
     end
@@ -57,11 +54,11 @@ class Fixnum
     self % x == 0
   end
 
-  def remainder_and_multiple_of(x)
+  def multiple_and_remainder(x)
     remainder = self % x
     multiple = self - remainder
 
-    [remainder, multiple]
+    [multiple, remainder]
   end
 
 end
