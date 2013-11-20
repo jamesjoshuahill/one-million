@@ -20,11 +20,25 @@ class Fixnum
       16      => "sixteen",
       17      => "seventeen",
       18      => "eighteen",
-      19      => "nineteen" 
+      19      => "nineteen",
+      20      => "twenty",
+      30      => "thirty",
+      40      => "forty",
+      50      => "fifty",
+      60      => "sixty",
+      70      => "seventy",
+      80      => "eighty",
+      90      => "ninety"
     }
     if self > 0 && self < 20
       return numbers_in_words[self]
+    elsif self.multiple_of?(10) && self < 100
+      return numbers_in_words[self]
     end
+  end
+
+  def multiple_of?(x)
+    self % x == 0
   end
 
 end
