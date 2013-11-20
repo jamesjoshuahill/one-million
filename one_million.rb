@@ -38,7 +38,7 @@ class Fixnum
       ones_digit = self % 10
       tens_digit = self - ones_digit
       
-      [numbers_in_words[tens_digit], numbers_in_words[ones_digit]].join(' ')
+      [tens_digit, ones_digit].map(&:in_words).join(' ')
     end
   end
 

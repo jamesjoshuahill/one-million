@@ -61,6 +61,18 @@ describe Fixnum do
                              "ninety one"]
       end
 
+      example '22, 33, 44, 55, 66, 77, 88, 99' do
+        words = [22, 33, 44, 55, 66, 77, 88, 99].map(&:in_words)
+        expect(words).to eq ["twenty two",
+                             "thirty three",
+                             "forty four",
+                             "fifty five",
+                             "sixty six",
+                             "seventy seven",
+                             "eighty eight",
+                             "ninety nine"]
+      end
+
     end
 
   end
