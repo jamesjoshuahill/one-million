@@ -92,6 +92,30 @@ describe Fixnum do
 
     end
 
+    context 'integers from 1,000 to 999,999' do
+
+      example '1000, 13,000, 26,000, 414,000, 878,000' do
+        words = [1000, 13000, 26000, 414000, 878000].map(&:in_words)
+        expect(words).to eq ["one thousand",
+                             "thirteen thousand",
+                             "twenty six thousand",
+                             "four hundred and fourteen thousand",
+                             "eight hundred and seventy eight thousand"]
+      end
+
+      example '2111, 14,123, 26,456, 517,789, 983,123' do
+        words = [2111, 14123, 26456, 517789, 983123].map(&:in_words)
+        expect(words).to eq [
+          "two thousand one hundred and eleven",
+          "fourteen thousand one hundred and twenty three",
+          "twenty six thousand four hundred and fifty six",
+          "five hundred and seventeen thousand seven hundred and eighty nine",
+          "nine hundred and eighty three thousand one hundred and twenty three"
+        ]
+      end
+
+    end
+
   end
 
 end

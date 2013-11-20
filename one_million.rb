@@ -48,6 +48,15 @@ class Fixnum
       hundreds = self - remainder
 
       hundreds.in_words + " and " + remainder.in_words
+    elsif self.multiple_of?(1000) && self < 1000000
+      thousands = self / 1000
+
+      thousands.in_words + " thousand"
+    elsif self < 1000000
+      remainder = self % 1000
+      thousands = self - remainder
+
+      thousands.in_words + " " + remainder.in_words
     end
   end
 
