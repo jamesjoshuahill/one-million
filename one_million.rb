@@ -1,3 +1,5 @@
+#!/usr/bin/env ruby
+
 class Fixnum
   
   NUMBERS_IN_WORDS = {
@@ -81,3 +83,6 @@ class Fixnum
   end
 
 end
+
+# Print from one to a million in words
+(1..1000000).each { |n| puts n.in_words }
