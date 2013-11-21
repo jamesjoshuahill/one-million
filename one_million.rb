@@ -33,36 +33,51 @@ class Fixnum
   def in_words
     if self < 20
       NUMBERS_IN_WORDS[self]
-    elsif self.multiple_of?(10) && self < 100
-      NUMBERS_IN_WORDS[self]
-    elsif self < 100
-      magnitude_in_words(10)
-    elsif self.multiple_of?(100) && self < 1000
-      (self / 100).in_words + " hundred"
-    elsif self < 1000
-      magnitude_in_words(100)
-    elsif self.multiple_of?(1000) && self < 1000000
-      (self / 1000).in_words + " thousand"
     elsif self < 1000000
-      magnitude_in_words(1000)
+      number_in_words
     elsif self == 1000000
       "one million"
     end
+  end
+
+  def number_in_words
+    return power_of_ten_in_words if self.multiple_of?(magnitude)
+    long_number_in_words
+  end
+
+  def power_of_ten_in_words
+    case magnitude
+    when 10
+      return NUMBERS_IN_WORDS[self]
+    when 100
+      magnitude_word = " hundred"
+    when 1000
+      magnitude_word = " thousand"
+    end
+    (self / magnitude).in_words + magnitude_word
+  end
+
+  def long_number_in_words
+    separator = (magnitude == 100) ? ' and ' : ' '
+    nearest_multiple_and_remainder_of(magnitude).map(&:in_words).join(separator)
+  end
+
+  def magnitude
+    return 1000 if self.digits > 4
+    10 ** (self.digits - 1)
+  end
+
+  def digits
+    self.to_s.length
   end
 
   def multiple_of?(x)
     self % x == 0
   end
 
-  def quotient_and_remainder(x)
-    remainder = self % x
-    quotient = self - remainder
-    [quotient, remainder]
-  end
-
-  def magnitude_in_words(x)
-    separator = (x == 100) ? ' and ' : ' '
-    quotient_and_remainder(x).map(&:in_words).join(separator)
+  def nearest_multiple_and_remainder_of(x)
+    nearest_multiple, remainder = self.divmod(x)
+    [nearest_multiple * x, remainder]
   end
 
 end
