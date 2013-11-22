@@ -1,8 +1,16 @@
-#!/usr/bin/env ruby
-
 class Fixnum
+
+  def in_words
+    if in_a_word?
+      in_a_word
+    elsif self > 0 && self <= 1000000
+      in_many_words
+    end
+  end
+
+  private
   
-  NUMBERS_IN_WORDS = {
+  IN_A_WORD = {
     1  => "one",
     2  => "two",
     3  => "three",
@@ -32,29 +40,27 @@ class Fixnum
     90 => "ninety"
   }
 
-  def in_words
-    if self < 20
-      NUMBERS_IN_WORDS[self]
-    elsif self < 1000000
-      number_in_words
-    elsif self == 1000000
-      "one million"
-    end
+  def in_a_word?
+    IN_A_WORD.has_key?(self)
   end
 
-  def number_in_words
-    return power_of_ten_in_words if self.multiple_of?(magnitude)
+  def in_a_word
+    IN_A_WORD[self]
+  end
+
+  def in_many_words
+    return power_of_ten_in_words if multiple_of?(magnitude)
     long_number_in_words
   end
 
   def power_of_ten_in_words
     case magnitude
-    when 10
-      return NUMBERS_IN_WORDS[self]
     when 100
       magnitude_word = " hundred"
     when 1000
       magnitude_word = " thousand"
+    when 1000000
+      magnitude_word = " million"
     end
     (self / magnitude).in_words + magnitude_word
   end
@@ -65,12 +71,12 @@ class Fixnum
   end
 
   def magnitude
-    return 1000 if self.digits > 4
-    10 ** (self.digits - 1)
+    return 1000 if (4..6).include?(digits)
+    10 ** (digits - 1)
   end
 
   def digits
-    self.to_s.length
+    to_s.length
   end
 
   def multiple_of?(x)
@@ -78,11 +84,8 @@ class Fixnum
   end
 
   def nearest_multiple_and_remainder_of(x)
-    nearest_multiple, remainder = self.divmod(x)
+    nearest_multiple, remainder = divmod(x)
     [nearest_multiple * x, remainder]
   end
 
 end
-
-# Print from one to a million in words
-(1..1000000).each { |n| puts n.in_words }
