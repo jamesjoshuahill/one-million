@@ -22,3 +22,19 @@ hundred and fifty five
 nine hundred and ninety nine thousand nine hundred
 and ninety nine one million
 ```
+
+## Response
+
+I chose to monkey patch Fixnum for this exercise, but it would probably be
+better to make this code into a module for use in production.
+
+I used RSpec and Guard for TDD with continuous testing.
+
+I then refactored the code several times with the aim of improving readability
+and dividing the code into parts that could be reused.
+
+To print one to a million in words execute the script provided:
+
+```
+$ ./one_to_a_million
+```
