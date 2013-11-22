@@ -8,6 +8,19 @@ class Fixnum
     end
   end
 
+  def digits
+    to_s.length
+  end
+
+  def multiple_of?(x)
+    self % x == 0
+  end
+
+  def nearest_multiple_and_remainder_of(x)
+    nearest_multiple, remainder = divmod(x)
+    [nearest_multiple * x, remainder]
+  end
+
   private
   
   IN_A_WORD = {
@@ -73,19 +86,6 @@ class Fixnum
   def magnitude
     return 1000 if (4..6).include?(digits)
     10 ** (digits - 1)
-  end
-
-  def digits
-    to_s.length
-  end
-
-  def multiple_of?(x)
-    self % x == 0
-  end
-
-  def nearest_multiple_and_remainder_of(x)
-    nearest_multiple, remainder = divmod(x)
-    [nearest_multiple * x, remainder]
   end
 
 end
