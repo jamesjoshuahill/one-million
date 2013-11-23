@@ -1,29 +1,15 @@
-# Algorithms
+One Million
+-----------
 
-This section is more of a problem solving exercise in code. The task is
-simple: the solution might not be.
+This code test was set by a London tech company.
 
-The challenge here is to write a Ruby script that outputs every number
+## The challenge
+
+The challenge was to write a Ruby script that outputs every number
 from 1 (one) to 1,000,000 (one million), but the output should be in
-words. Example output is as follows:
+words.
 
-```
-one
-two
-three
-...
-one hundred and twelve
-one hundred and thirteen
-...
-four hundred and seventeen thousand one hundred and
-fifty four four hundred and seventeen thousand one
-hundred and fifty five
-...
-nine hundred and ninety nine thousand nine hundred
-and ninety nine one million
-```
-
-## Response
+## My response
 
 I chose to monkey patch Fixnum for this exercise, but it would probably be
 better to make this code into a module for use in production.
