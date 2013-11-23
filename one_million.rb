@@ -1,11 +1,7 @@
 class Fixnum
 
   def in_words
-    if in_a_word?
-      in_a_word
-    elsif self > 0 && self <= 1000000
-      in_many_words
-    end
+    in_a_word || in_many_words if know_in_words?
   end
 
   def digits
@@ -16,9 +12,8 @@ class Fixnum
     self % x == 0
   end
 
-  def nearest_multiple_and_remainder_of(x)
-    nearest_multiple, remainder = divmod(x)
-    [nearest_multiple * x, remainder]
+  def round_down_to_multiple_of(x)
+    div(x) * x
   end
 
   private
@@ -53,8 +48,14 @@ class Fixnum
     90 => "ninety"
   }
 
-  def in_a_word?
-    IN_A_WORD.has_key?(self)
+  MAGNITUDE_WORD = {
+    100     => "hundred",
+    1000    => "thousand",
+    1000000 => "million"
+  }
+
+  def know_in_words?
+    self > 0 && self <= 1000000
   end
 
   def in_a_word
@@ -62,30 +63,36 @@ class Fixnum
   end
 
   def in_many_words
-    return power_of_ten_in_words if multiple_of?(magnitude)
-    long_number_in_words
+    multiple_of?(magnitude) ? round_number_in_words : long_number_in_words
   end
 
-  def power_of_ten_in_words
-    case magnitude
-    when 100
-      magnitude_word = " hundred"
-    when 1000
-      magnitude_word = " thousand"
-    when 1000000
-      magnitude_word = " million"
-    end
-    (self / magnitude).in_words + magnitude_word
+  def round_number_in_words
+    [(self / magnitude).in_words, magnitude_word].join(' ')
   end
 
   def long_number_in_words
-    separator = (magnitude == 100) ? ' and ' : ' '
-    nearest_multiple_and_remainder_of(magnitude).map(&:in_words).join(separator)
+    [magnitude_in_words, remainder_in_words].join(magnitude_separator)
+  end
+
+  def magnitude_in_words
+    round_down_to_multiple_of(magnitude).in_words
+  end
+
+  def remainder_in_words
+    remainder(magnitude).in_words
   end
 
   def magnitude
     return 1000 if (4..6).include?(digits)
     10 ** (digits - 1)
+  end
+
+  def magnitude_word
+    MAGNITUDE_WORD[magnitude]
+  end
+
+  def magnitude_separator
+    separator = (magnitude == 100) ? ' and ' : ' '
   end
 
 end
