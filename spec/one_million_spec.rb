@@ -126,6 +126,18 @@ describe Fixnum do
         ]
       end
 
+      example '1001, 10001, 1099, 1100,100001,100099' do
+        words = [1001,10001,1099,1100,100001,100099].map(&:in_words)
+        expect(words).to eq [
+          "one thousand and one",
+          "ten thousand and one",
+          "one thousand and ninety nine",
+          "one thousand one hundred",
+          "one hundred thousand and one",
+          "one hundred thousand and ninety nine"
+        ]
+      end
+
     end
 
     context 'one million' do
