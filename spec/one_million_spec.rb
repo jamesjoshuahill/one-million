@@ -115,6 +115,18 @@ describe Fixnum do
                              "eight hundred and seventy eight thousand"]
       end
 
+      example '1001, 9099, 10001, 90099, 100001, 900099' do
+        words = [1001, 9099, 10001, 90099, 100001, 900099].map(&:in_words)
+        expect(words).to eq [
+          "one thousand and one",
+          "nine thousand and ninety nine",
+          "ten thousand and one",
+          "ninety thousand and ninety nine",
+          "one hundred thousand and one",
+          "nine hundred thousand and ninety nine"
+        ]
+      end
+
       example '2111, 14,123, 26,456, 517,789, 983,123' do
         words = [2111, 14123, 26456, 517789, 983123].map(&:in_words)
         expect(words).to eq [
@@ -123,18 +135,6 @@ describe Fixnum do
           "twenty six thousand four hundred and fifty six",
           "five hundred and seventeen thousand seven hundred and eighty nine",
           "nine hundred and eighty three thousand one hundred and twenty three"
-        ]
-      end
-
-      example '1001, 10001, 1099, 1100,100001,100099' do
-        words = [1001,10001,1099,1100,100001,100099].map(&:in_words)
-        expect(words).to eq [
-          "one thousand and one",
-          "ten thousand and one",
-          "one thousand and ninety nine",
-          "one thousand one hundred",
-          "one hundred thousand and one",
-          "one hundred thousand and ninety nine"
         ]
       end
 

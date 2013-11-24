@@ -92,11 +92,7 @@ class Fixnum
   end
 
   def magnitude_separator
-    return ' and ' if does_not_include_hundred
-    (magnitude == 100) ? ' and ' : ' '
+    (remainder(magnitude) < 100 && magnitude > 10) ? ' and ' : ' '
   end
 
-  def does_not_include_hundred
-    round_down_to_multiple_of(100) % 1000 == 0 && self >= 100
-  end
 end
