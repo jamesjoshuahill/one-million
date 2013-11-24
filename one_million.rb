@@ -17,7 +17,7 @@ class Fixnum
   end
 
   private
-  
+
   IN_A_WORD = {
     1  => "one",
     2  => "two",
@@ -92,7 +92,11 @@ class Fixnum
   end
 
   def magnitude_separator
-    separator = (magnitude == 100) ? ' and ' : ' '
+    return ' and ' if does_not_include_hundred
+    (magnitude == 100) ? ' and ' : ' '
   end
 
+  def does_not_include_hundred
+    round_down_to_multiple_of(100) % 1000 == 0 && self >= 100
+  end
 end
