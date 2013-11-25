@@ -12,10 +12,6 @@ class Fixnum
     self % x == 0
   end
 
-  def round_down_to_multiple_of(x)
-    div(x) * x
-  end
-
   private
 
   IN_A_WORD = {
@@ -71,15 +67,12 @@ class Fixnum
   end
 
   def long_number_in_words
-    [magnitude_in_words, remainder_in_words].join(magnitude_separator)
+    magnitude_part_and_remainder.map(&:in_words).join(magnitude_separator)
   end
 
-  def magnitude_in_words
-    round_down_to_multiple_of(magnitude).in_words
-  end
-
-  def remainder_in_words
-    remainder(magnitude).in_words
+  def magnitude_part_and_remainder
+    quotient, remainder = divmod(magnitude)
+    [magnitude * quotient, remainder]
   end
 
   def magnitude
